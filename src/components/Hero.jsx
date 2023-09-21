@@ -37,7 +37,7 @@ export const Hero = () => {
           const nodeElement = document.getElementById(`cell-child-${node.id}`);
           if (nodeElement.style.backgroundColor !== "rgb(0, 190, 218)") {
             setTimeout(() => {
-              nodeElement.style.backgroundColor = "#00beda";
+              nodeElement.style.backgroundColor = "rgb(0, 190, 218)";
             }, 200);
             nodeElement.classList.add(VISITED_ANIMATION);
           }

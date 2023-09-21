@@ -1,19 +1,53 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import { useGraphContext } from "../context/graphContext";
+import { getGraph } from "../helpers/getGraph";
+import { getID } from "../helpers/getId";
 import { Cell } from "./Cell";
 
 export const Grid = () => {
   const { graph, setGraph } = useGraphContext();
+  const [drag, setDrag] = useState({
+    isDragging: false,
+    dragItem: null,
+  });
+
   const onDrop = (e) => {
-    const dropTarget = e.target;
-    const id = dropTarget.id.replace("cell-child-", "");
-    setGraph((prev) => ({ ...prev, start: id }));
-    console.log(id);
+    const dropTargetID = getID(e.target);
+
+    if (dropTargetID === graph.start || dropTargetID === graph.end) return;
+
+    if (drag.dragItem === "start") {
+      setGraph(getGraph(800, dropTargetID, graph.end));
+      console.log("start");
+    }
+    if (drag.dragItem === "end") {
+      setGraph(getGraph(800, graph.start, dropTargetID));
+      console.log("end");
+    }
+    setDrag((prev) => ({ ...prev, isDragging: false }));
+    console.log(dropTargetID);
   };
+
   return (
     <div
       onDrag={(e) => {
-        console.log(e.target);
+        if (!drag.isDragging) {
+          const id = getID(e.target);
+
+          if (graph.nodes[id].isStart) {
+            setDrag((prev) => ({
+              ...prev,
+              isDragging: true,
+              dragItem: "start",
+            }));
+          }
+          if (graph.nodes[id].isEnd) {
+            setDrag((prev) => ({ ...prev, isDragging: true, dragItem: "end" }));
+          }
+
+          console.log(e.target);
+        }
       }}
       onDragOver={(e) => {
         e.preventDefault();

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
-import { Graph } from "../classes/Graph";
+import { getGraph } from "../helpers/getGraph";
 
 const graphContext = createContext(null);
 
@@ -17,10 +17,4 @@ export const GraphProvider = ({ children }) => {
       {children}
     </graphContext.Provider>
   );
-};
-
-const getGraph = (V, start, end) => {
-  const graph = new Graph(V, start, end);
-
-  return graph;
 };
