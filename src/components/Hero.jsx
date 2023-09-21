@@ -14,12 +14,12 @@ export const Hero = () => {
   const getShortestPath = async () => {
     // remove cell styles before finding shortest path
     graph.nodes.forEach((node) => {
-      if (!node.isStart && !node.isEnd) {
+      if (!(node.isStart || node.isEnd || node.isWall)) {
         const nodeElement = document.getElementById(`cell-child-${node.id}`);
         nodeElement.classList.remove(SHORTESTPATH_ANIMATION);
         nodeElement.classList.remove(VISITED_ANIMATION);
 
-        nodeElement.style.backgroundColor = "#ffffff";
+        nodeElement.style.backgroundColor = "rgb(168, 183, 204)";
       }
     });
 
@@ -33,7 +33,7 @@ export const Hero = () => {
       updatedGraph = nextYield.value;
 
       updatedGraph.nodes.forEach((node) => {
-        if (node.isVisited && !node.isStart && !node.isEnd) {
+        if (node.isVisited && !node.isStart && !node.isEnd && !node.isWall) {
           const nodeElement = document.getElementById(`cell-child-${node.id}`);
           if (nodeElement.style.backgroundColor !== "rgb(0, 190, 218)") {
             setTimeout(() => {

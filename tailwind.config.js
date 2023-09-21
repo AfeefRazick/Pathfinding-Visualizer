@@ -7,19 +7,19 @@ export default {
         visited: {
           "0%": {
             transform: "scale(0.3)",
-            backgroundColor: "rgba(0, 0, 66, 0.75)",
+            backgroundColor: "rgba(0, 120, 255, 0.5)",
             borderRadius: "100%",
           },
           "50%": {
-            backgroundColor: "rgba(17, 104, 217, 0.75)",
+            backgroundColor: "rgba(0, 120, 255, 0.8)",
           },
           "75%": {
             transform: "scale(1.2)",
-            backgroundColor: "rgba(0, 217, 159, 0.75)",
+            backgroundColor: "rgba(0, 120, 255, 1)",
           },
           "100%": {
             transform: "scale(1)",
-            backgroundColor: "#00beda",
+            backgroundColor: "rgba(0, 190, 218, 1)",
           },
         },
         shortestpath: {

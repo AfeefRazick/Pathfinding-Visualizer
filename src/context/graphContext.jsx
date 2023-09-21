@@ -2,6 +2,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 import { getGraph } from "../helpers/getGraph";
+import { VERTEX_COUNT } from "../constants/graphValues";
 
 const graphContext = createContext(null);
 
@@ -10,7 +11,9 @@ export const useGraphContext = () => {
 };
 
 export const GraphProvider = ({ children }) => {
-  const [graph, setGraph] = useState(getGraph(800, 340, 250));
+  const [graph, setGraph] = useState(
+    getGraph(VERTEX_COUNT, 190, 228, [100, 101, 300])
+  );
 
   return (
     <graphContext.Provider value={{ graph, setGraph }}>
