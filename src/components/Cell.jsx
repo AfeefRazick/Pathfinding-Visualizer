@@ -1,22 +1,27 @@
 // import { useGraphContext } from "../context/graphContext";
 
+import { useGraphContext } from "../context/graphContext";
 import { cn } from "../utils/cn";
 
 /* eslint-disable react/prop-types */
 export const Cell = ({ node }) => {
-  const { id, isShortestPath, isVisited, isStart, isEnd } = node;
-  // console.log(isVisited);
+  const { id, isStart, isEnd } = node;
+  const { graph, setGraph } = useGraphContext();
+
   return (
     <div
+      id={`cell-${id}`}
       className={cn(
         "w-6 h-6 border border-solid border-black",
-        isVisited ? "bg-blue-600" : "",
-        isShortestPath ? "bg-red-700" : "",
         isStart ? "bg-black" : "",
         isEnd ? "bg-yellow-400" : ""
       )}
     >
-      {/* {id} */}
+      <div
+        draggable={true}
+        id={`cell-child-${id}`}
+        className={cn("w-full h-full transition-all ease-linear")}
+      ></div>
     </div>
   );
 };

@@ -1,4 +1,10 @@
-export const useDijkstrasAlgo = () => {
+// import { useGraphContext } from "../context/graphContext";
+
+import { PriorityQueue } from "../classes/MinHeap";
+
+export const useDijkstrasAlgoMin = () => {
+  // const { graph, setGraph } = useGraphContext();
+
   function* dijkstras(graph) {
     // Prints shortest paths from graph.start to all other vertices
 
@@ -6,7 +12,9 @@ export const useDijkstrasAlgo = () => {
     // are being preprocessed. This is weird syntax in C++.
     // Refer below link for details of graph syntax
     // https://www.geeksforgeeks.org/implement-min-heap-using-stl/
-    let pq = [];
+    // let pq = [];
+
+    let pq = new PriorityQueue((a, b) => a[1] < b[1]);
 
     // Create a vector for distances and initialize all
     // distances as infinite (INF)
@@ -16,20 +24,20 @@ export const useDijkstrasAlgo = () => {
 
     // Insert source itself in priority queue and initialize
     // its distance as 0.
-    pq.push([0, graph.start]);
+    pq.push([graph.start, 0]);
     dist[graph.start] = { distance: 0, fromNode: graph.start };
 
     /* Looping till priority queue becomes empty (or all
       distances are not finalized) */
-    while (pq.length > 0) {
+    while (pq.size() > 0) {
       // The first vertex in pair is the minimum distance
       // vertex, extract it from priority queue.
       // vertex label is stored in second of pair (it
       // has to be done graph way to keep the vertices
       // sorted distance (distance must be first item
       // in pair)
-      let u = pq[0][1];
-      pq.shift();
+      let u = pq.peek()[0];
+      pq.pop();
 
       // loop through neighbours of current node
       // updating the neighbours new shortestdistance if less than previous shortestdistance
@@ -54,11 +62,11 @@ export const useDijkstrasAlgo = () => {
           dist[v].distance = dist[u].distance + weight;
           dist[v].fromNode = u;
 
-          pq.push([dist[v].distance, v]);
-          pq.sort((a, b) => {
-            if (a[0] == b[0]) return a[1] - b[1];
-            return a[0] - b[0];
-          });
+          pq.push([v, dist[v].distance]);
+          // pq.sort((a, b) => {
+          //   if (a[0] == b[0]) return a[1] - b[1];
+          //   return a[0] - b[0];
+          // });
         }
 
         if (v === graph.end) {
@@ -92,5 +100,11 @@ const getShortestPath = (dist, start, end) => {
   }
   path.reverse();
   path.pop();
+  console.log(path);
+
   return { distance, path };
 };
+
+export function delay(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}

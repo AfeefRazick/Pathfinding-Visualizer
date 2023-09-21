@@ -1,3 +1,4 @@
+// problem is that i am setting isstart when graph is made...need to do on change as well
 export class Graph {
   constructor(V, start, end) {
     // No. of vertices
