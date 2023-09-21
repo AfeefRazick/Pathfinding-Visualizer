@@ -2,12 +2,15 @@
 
 import { GraphProvider } from "./context/graphContext";
 import { Hero } from "./components/Hero";
+import { AppProvider } from "./context/appContext";
 
 const App = () => {
   return (
-    <GraphProvider>
-      <Hero />
-    </GraphProvider>
+    <AppProvider>
+      <GraphProvider>
+        <Hero />
+      </GraphProvider>
+    </AppProvider>
   );
 };
 

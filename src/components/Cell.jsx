@@ -1,10 +1,10 @@
-// import { useGraphContext } from "../context/graphContext";
-
+import { useAppContext } from "../context/appContext";
 import { cn } from "../utils/cn";
 
 /* eslint-disable react/prop-types */
 export const Cell = ({ node }) => {
   const { id, isStart, isEnd, isWall } = node;
+  const { appState } = useAppContext();
 
   const backgroundColor = isStart
     ? "orange"
@@ -13,6 +13,8 @@ export const Cell = ({ node }) => {
     : isWall
     ? "black"
     : "";
+
+  const cursor = isStart || isEnd ? "grab" : "pointer";
   return (
     <div
       id={`cell-${id}`}
@@ -21,8 +23,8 @@ export const Cell = ({ node }) => {
       )}
     >
       <div
-        style={{ backgroundColor }}
-        draggable={true}
+        style={{ backgroundColor, cursor }}
+        draggable={(isStart || isEnd) && !appState.isVisualizing}
         id={`cell-child-${id}`}
         className={cn(
           "w-6 h-6 transition-all rounded ease-linear bg-slate-400/75"

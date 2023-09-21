@@ -2,14 +2,14 @@ import { COL_COUNT, ROW_COUNT } from "../constants/graphValues";
 
 // problem is that i am setting isstart when graph is made...need to do on change as well
 export class Graph {
-  constructor(V, start, end, walls) {
+  constructor(V, start, end, walls = []) {
     // No. of vertices
     this.V = V;
     this.start = start;
     this.end = end;
-    this.walls = walls;
-    // In a weighted graph, we need to store vertex
-    // and weight pair for every edge
+    // start/node cannot be a wall, so remove from walls if contains start/end
+    this.walls = walls.filter((id) => !(id === start || id === end));
+
     this.nodes = new Array(V);
 
     // for (let i = 0; i < V; i++) {

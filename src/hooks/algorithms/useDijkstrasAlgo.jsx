@@ -1,15 +1,9 @@
 export const useDijkstrasAlgo = () => {
   function* dijkstras(graph) {
-    // Prints shortest paths from graph.start to all other vertices
-
-    // Create a priority queue to store vertices that
-    // are being preprocessed. This is weird syntax in C++.
-    // Refer below link for details of graph syntax
-    // https://www.geeksforgeeks.org/implement-min-heap-using-stl/
     let pq = [];
 
     // Create a vector for distances and initialize all
-    // distances as infinite (INF)
+    // distances as infinite
     let dist = new Array(graph.V);
     for (let i = 0; i < graph.V; i++)
       dist[i] = { distance: Infinity, fromNode: graph.start };
@@ -46,9 +40,9 @@ export const useDijkstrasAlgo = () => {
           return { ...node, isVisited };
         });
 
-        yield { ...graph, nodes }; /////////////////////////////////////////////////////////////
+        yield { ...graph, nodes };
 
-        // If there is shorted path to v through u.
+        // If there is shorter path to v through u.
         if (dist[v].distance > dist[u].distance + weight) {
           // Updating distance of v
           dist[v].distance = dist[u].distance + weight;
@@ -63,20 +57,11 @@ export const useDijkstrasAlgo = () => {
 
         if (v === graph.end) {
           return getShortestPath(dist, graph.start, graph.end);
-          // const nodes = graph.nodes.map((node) => {
-          //   const isShortestPath = shortestPath.path.includes(node.id);
-
-          //   return { ...node, isShortestPath };
-          // });
-          // return { ...graph, nodes };
         }
       }
     }
-    // console.log(dist);
-    // Print shortest distances stored in dist[]
-    // document.write("Vertex Distance from Source");
-    // for (let i = 0; i < graph.V; ++i)
-    //   console.log(i, "        ", dist[i].distance);
+    // if no path between start and end return empty path array and a shortest distance of infinity
+    return getShortestPath(dist, graph.start, graph.end);
   }
   return dijkstras;
 };
