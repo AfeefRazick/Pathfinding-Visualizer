@@ -1,4 +1,4 @@
-import { getShortestPath } from "../../helpers/getShortestPath";
+import { getPath } from "../../helpers/getPath";
 
 export const useDijkstrasAlgo = () => {
   function* dijkstras(graph) {
@@ -36,13 +36,14 @@ export const useDijkstrasAlgo = () => {
         let weight = graph.nodes[u].neighbours[i].weight;
 
         // if shortest distance is not infinity then mark as visited
-        const nodes = graph.nodes.map((node) => {
-          const isVisited = dist[node.id].distance !== Infinity;
+        // const nodes = graph.nodes.map((node) => {
+        //   const isVisited = dist[node.id].distance !== Infinity;
 
-          return { ...node, isVisited };
-        });
+        //   return { ...node, isVisited };
+        // });
 
-        yield { ...graph, nodes };
+        // yield { ...graph, nodes };
+        yield graph.nodes[v];
 
         // If there is shorter path to v through u.
         if (dist[v].distance > dist[u].distance + weight) {
@@ -56,14 +57,15 @@ export const useDijkstrasAlgo = () => {
             return a[0] - b[0];
           });
         }
-
+        // should really be outside for loop checking for u instead of v
+        // but doesnt matter in grid implementation and is not visually appealing
         if (v === graph.end) {
-          return getShortestPath(dist, graph.start, graph.end);
+          return getPath(dist, graph.start, graph.end);
         }
       }
     }
     // if no path between start and end return empty path array and a shortest distance of infinity
-    return getShortestPath(dist, graph.start, graph.end);
+    return getPath(dist, graph.start, graph.end);
   }
   return dijkstras;
 };

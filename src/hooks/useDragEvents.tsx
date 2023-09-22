@@ -28,28 +28,36 @@ export const useDragEvents = () => {
         setDrag((prev) => ({ ...prev, isDragging: true, dragItem: "end" }));
       } else {
         // make wall
-        setDrag((prev) => ({ ...prev, isDragging: false, dragItem: null }));
+        setDrag((prev) => ({ ...prev, isDragging: false, dragItem: "wall" }));
       }
     }
   };
   const onDragOver = (e) => {
     if (appState.isVisualizing) return;
     e.preventDefault();
-    if (drag.dragItem === null) {
-      console.log("bruh");
+
+    // if (drag.isDragging) e.preventDefault();
+    if (drag.dragItem === "wall") {
       const draggedOverID = getID(e.target);
+
       setGraph((prev) =>
         getGraph(prev.V, prev.start, prev.end, [...prev.walls, draggedOverID])
       );
+      setDrag((prev) => ({ ...prev, isDragging: false, dragItem: null }));
     }
   };
 
   const onDrop = (e) => {
     if (appState.isVisualizing) return;
-
     const dropTargetID = getID(e.target);
 
-    if (dropTargetID === graph.start || dropTargetID === graph.end) return;
+    if (dropTargetID === graph.start || dropTargetID === graph.end) {
+      return setDrag((prev) => ({
+        ...prev,
+        isDragging: false,
+        dragItem: null,
+      }));
+    }
 
     if (drag.dragItem === "start") {
       setGraph((prev) => getGraph(prev.V, dropTargetID, prev.end, prev.walls));

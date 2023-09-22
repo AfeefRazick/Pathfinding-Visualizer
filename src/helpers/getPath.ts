@@ -1,4 +1,4 @@
-export const getShortestPath = (dist, start, end) => {
+export const getPath = (dist, start, end) => {
   const path = [];
   let distance = dist[end].distance;
   let currentNode = end;

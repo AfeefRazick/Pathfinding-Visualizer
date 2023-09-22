@@ -1,5 +1,5 @@
 import { PriorityQueue } from "../../classes/MinHeap";
-import { getShortestPath } from "../../helpers/getShortestPath";
+import { getPath } from "../../helpers/getPath";
 
 export const useDijkstrasAlgoMin = () => {
   function* dijkstras(graph) {
@@ -20,14 +20,7 @@ export const useDijkstrasAlgoMin = () => {
         let v = graph.nodes[u].neighbours[i].neighbourIndex;
         let weight = graph.nodes[u].neighbours[i].weight;
 
-        // if shortest distance is not infinity then mark as visited
-        const nodes = graph.nodes.map((node) => {
-          const isVisited = dist[node.id].distance !== Infinity;
-
-          return { ...node, isVisited };
-        });
-
-        yield { ...graph, nodes };
+        yield graph.nodes[v];
 
         // If there is shorter path to v through u.
         if (dist[v].distance > dist[u].distance + weight) {
@@ -39,12 +32,12 @@ export const useDijkstrasAlgoMin = () => {
         }
 
         if (v === graph.end) {
-          return getShortestPath(dist, graph.start, graph.end);
+          return getPath(dist, graph.start, graph.end);
         }
       }
     }
     // if no path between start and end return empty path array and a shortest distance of infinity
-    return getShortestPath(dist, graph.start, graph.end);
+    return getPath(dist, graph.start, graph.end);
   }
   return dijkstras;
 };

@@ -29,23 +29,34 @@ export const useShortestPath = () => {
 
     const shortestPathGenerator = currentAlgorithm(graph);
 
-    let updatedGraph;
+    // let updatedGraph;
     let nextYield = shortestPathGenerator.next();
 
     while (!nextYield.done) {
-      updatedGraph = nextYield.value;
-
-      updatedGraph.nodes.forEach((node) => {
-        if (node.isVisited && !node.isStart && !node.isEnd && !node.isWall) {
-          const nodeElement = document.getElementById(`cell-child-${node.id}`);
-          if (nodeElement.style.backgroundColor !== "rgb(0, 190, 218)") {
-            setTimeout(() => {
-              nodeElement.style.backgroundColor = "rgb(0, 190, 218)";
-            }, 200);
-            nodeElement.classList.add(VISITED_ANIMATION);
-          }
+      const node = nextYield.value;
+      if (!node.isStart && !node.isEnd && !node.isWall) {
+        const nodeElement = document.getElementById(`cell-child-${node.id}`);
+        if (nodeElement.style.backgroundColor !== "rgb(0, 190, 218)") {
+          setTimeout(() => {
+            nodeElement.style.backgroundColor = "rgb(0, 190, 218)";
+          }, 200);
+          nodeElement.classList.add(VISITED_ANIMATION);
         }
-      });
+      }
+
+      // updatedGraph = nextYield.value;
+
+      // updatedGraph.nodes.forEach((node) => {
+      //   if (node.isVisited && !node.isStart && !node.isEnd && !node.isWall) {
+      //     const nodeElement = document.getElementById(`cell-child-${node.id}`);
+      //     if (nodeElement.style.backgroundColor !== "rgb(0, 190, 218)") {
+      //       setTimeout(() => {
+      //         nodeElement.style.backgroundColor = "rgb(0, 190, 218)";
+      //       }, 200);
+      //       nodeElement.classList.add(VISITED_ANIMATION);
+      //     }
+      //   }
+      // });
 
       await delay(1);
       nextYield = shortestPathGenerator.next();

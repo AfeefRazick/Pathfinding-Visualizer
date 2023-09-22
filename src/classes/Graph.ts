@@ -8,7 +8,11 @@ export class Graph {
     this.start = start;
     this.end = end;
     // start/node cannot be a wall, so remove from walls if contains start/end
-    this.walls = walls.filter((id) => !(id === start || id === end));
+    // next condition removes duplicates
+    this.walls = walls.filter(
+      (id, index) =>
+        !(id === start || id === end) && walls.indexOf(id) === index
+    );
 
     this.nodes = new Array(V);
 

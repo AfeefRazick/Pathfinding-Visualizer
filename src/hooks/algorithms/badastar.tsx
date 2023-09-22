@@ -1,7 +1,9 @@
+import { getPath } from "../../helpers/getPath";
+import { manhattanDist } from "../../utils/manhattanDistance";
+
 export const usebadAstarAlgo = () => {
   function* aStar(graph) {
     let pq = [];
-    console.log("ss");
     // Create a vector for distances and initialize all
     // distances as infinite
     let dist = new Array(graph.V);
@@ -11,11 +13,11 @@ export const usebadAstarAlgo = () => {
     // Insert source itself in priority queue and initialize
     // its distance as 0.
     pq.push([
-      heuristic(graph.nodes[graph.start], graph.nodes[graph.end]),
+      manhattanDist(graph.nodes[graph.start], graph.nodes[graph.end]),
       graph.start,
     ]);
     dist[graph.start] = {
-      distance: heuristic(graph.nodes[graph.start], graph.nodes[graph.end]),
+      distance: manhattanDist(graph.nodes[graph.start], graph.nodes[graph.end]),
       fromNode: graph.start,
     };
 
@@ -39,20 +41,13 @@ export const usebadAstarAlgo = () => {
         let v = graph.nodes[u].neighbours[i].neighbourIndex;
         let weight = graph.nodes[u].neighbours[i].weight;
 
-        // if shortest distance is not infinity then mark as visited
-        const nodes = graph.nodes.map((node) => {
-          const isVisited = dist[node.id].distance !== Infinity;
-
-          return { ...node, isVisited };
-        });
-
-        yield { ...graph, nodes };
+        yield graph.nodes[v];
 
         // If there is shorter path to v through u.
         const newDistance =
           dist[u].distance +
           weight +
-          heuristic(graph.nodes[u], graph.nodes[graph.end]);
+          manhattanDist(graph.nodes[u], graph.nodes[graph.end]);
         if (dist[v].distance > newDistance) {
           // Updating distance of v
           dist[v].distance = newDistance;
@@ -66,33 +61,12 @@ export const usebadAstarAlgo = () => {
         }
 
         if (v === graph.end) {
-          return getShortestPath(dist, graph.start, graph.end);
+          return getPath(dist, graph.start, graph.end);
         }
       }
     }
     // if no path between start and end return empty path array and a shortest distance of infinity
-    return getShortestPath(dist, graph.start, graph.end);
+    return getPath(dist, graph.start, graph.end);
   }
   return aStar;
 };
-
-const getShortestPath = (dist, start, end) => {
-  const path = [];
-  let distance = dist[end].distance;
-  let currentNode = end;
-
-  while (currentNode != start) {
-    path.push(currentNode);
-    currentNode = dist[currentNode].fromNode;
-  }
-  path.reverse();
-  path.pop();
-  return { distance, path };
-};
-
-function heuristic(node, endNode) {
-  let d1 = Math.abs(endNode.position.row - node.position.row);
-  let d2 = Math.abs(endNode.position.col - node.position.col);
-
-  return d1 + d2;
-}
