@@ -40,6 +40,7 @@ export class Graph {
 
         this.nodes[i] = {
           id: i,
+          position: { row, col },
           neighbours,
           isStart: start === i,
           isEnd: end === i,

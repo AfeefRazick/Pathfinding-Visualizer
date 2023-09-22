@@ -1,4 +1,9 @@
-import { DIJKSTRAS, DIJKSTRAS_MIN } from "../constants/algorithms";
+import {
+  A_STAR,
+  A_STAR_MIN,
+  DIJKSTRAS,
+  DIJKSTRAS_MIN,
+} from "../constants/algorithms";
 import { useAppContext } from "../context/appContext";
 import { useShortestPath } from "../hooks/useShortestPath";
 
@@ -19,6 +24,8 @@ export const ControlBar = () => {
       >
         <option value={DIJKSTRAS}>Dijkstras</option>
         <option value={DIJKSTRAS_MIN}>Dijkstras (Min Heap)</option>
+        <option value={A_STAR}>A* Star</option>
+        <option value={A_STAR_MIN}>A* Star (Min Heap)</option>
       </select>
       <button disabled={appState.isVisualizing} onClick={getShortestPath}>
         Find Shortest Path
