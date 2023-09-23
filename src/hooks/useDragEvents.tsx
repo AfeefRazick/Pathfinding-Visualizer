@@ -43,22 +43,21 @@ export const useDragEvents = () => {
         if (appState.addWeight) {
           const draggedOverID = getID(e.target)
           setGraph((prev) =>
-            getGraph(prev.V, prev.start, prev.end, prev.walls, [
-              ...prev.weights,
-              draggedOverID,
-            ])
+            getGraph({
+              ...prev,
+              walls: prev.walls.filter((id) => id !== draggedOverID),
+              weights: [...prev.weights, draggedOverID],
+            })
           )
         } else if (appState.addWall) {
           const draggedOverID = getID(e.target)
 
           setGraph((prev) =>
-            getGraph(
-              prev.V,
-              prev.start,
-              prev.end,
-              [...prev.walls, draggedOverID],
-              prev.weights
-            )
+            getGraph({
+              ...prev,
+              walls: [...prev.walls, draggedOverID],
+              weights: prev.weights.filter((id) => id !== draggedOverID),
+            })
           )
         }
         setDrag((prev) => ({ ...prev, dragItem: null }))
@@ -71,26 +70,12 @@ export const useDragEvents = () => {
     (e) => {
       if (appState.isVisualizing) return
       const dropTargetID = getID(e.target)
-      // if (dropTargetID === graph.start || dropTargetID === graph.end) {
-
-      //   setGraph((prev) =>
-      //     getGraph(prev.V, prev.start, prev.end, prev.walls, prev.weights)
-      //   )
-      //   return setDrag((prev) => ({
-      //     ...prev,
-      //     dragItem: null,
-      //   }))
-      // }
 
       if (drag.dragItem === "start") {
-        setGraph((prev) =>
-          getGraph(prev.V, dropTargetID, prev.end, prev.walls, prev.weights)
-        )
+        setGraph((prev) => getGraph({ ...prev, start: dropTargetID }))
       }
       if (drag.dragItem === "end") {
-        setGraph((prev) =>
-          getGraph(prev.V, prev.start, dropTargetID, prev.walls, prev.weights)
-        )
+        setGraph((prev) => getGraph({ ...prev, end: dropTargetID }))
       }
       setDrag((prev) => ({ ...prev, dragItem: null }))
     },

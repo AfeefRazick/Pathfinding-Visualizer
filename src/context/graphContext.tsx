@@ -12,11 +12,11 @@ export const useGraphContext = () => {
 
 export const GraphProvider = ({ children }) => {
   const [graph, setGraph] = useState(
-    getGraph(
-      VERTEX_COUNT,
-      221,
-      227,
-      [
+    getGraph({
+      V: VERTEX_COUNT,
+      start: 221,
+      end: 227,
+      walls: [
         122, 152, 182, 212, 242, 272, 302, 123, 124, 125, 155, 185, 215, 214,
         213, 243, 274, 305,
         //
@@ -25,13 +25,13 @@ export const GraphProvider = ({ children }) => {
         //
         145, 175, 205, 235, 265, 295, 325, 144, 146, 147, 143,
       ],
-      [
+      weights: [
         130, 129, 128, 127, 157, 187, 217, 247, 277, 307, 308, 309, 310, 218,
         219, 220, 220,
         //
         141, 140, 139, 138, 168, 198, 228, 258, 288, 318, 319, 320, 321,
-      ]
-    )
+      ],
+    })
   )
 
   return (
