@@ -1,4 +1,5 @@
-export const DIJKSTRAS = "DIJKSTRAS";
-export const DIJKSTRAS_MIN = "DIJKSTRAS_MIN";
-export const A_STAR = "A_STAR";
-export const A_STAR_MIN = "A_STAR_MIN";
+export const DIJKSTRAS = "DIJKSTRAS"
+export const DIJKSTRAS_MIN = "DIJKSTRAS_MIN"
+export const A_STAR = "A_STAR"
+export const A_STAR_MIN = "A_STAR_MIN"
+export const CUSTOM_ALGORITHM = "CUSTOM_ALGORITHM"

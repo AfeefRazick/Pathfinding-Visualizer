@@ -48,7 +48,8 @@ export class Graph {
           neighbours,
           isStart: start === i,
           isEnd: end === i,
-          isWall: neighbours.length === 0,
+          // isWall: neighbours.length === 0,
+          isWall: this.walls.includes(i),
         };
       }
     }

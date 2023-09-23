@@ -2,6 +2,7 @@
 import { useGraphContext } from "../context/graphContext";
 import { Cell } from "./Cell";
 import { useDragEvents } from "../hooks/useDragEvents";
+import { getID } from "../helpers/getId";
 
 export const Grid = () => {
   const { graph } = useGraphContext();

@@ -3,6 +3,7 @@ import { useAppContext } from "../context/appContext";
 import { useGraphContext } from "../context/graphContext";
 import { getID } from "../helpers/getId";
 import { getGraph } from "../helpers/getGraph";
+import { delay } from "../utils/delay";
 
 export const useDragEvents = () => {
   const { graph, setGraph } = useGraphContext();
@@ -15,7 +16,7 @@ export const useDragEvents = () => {
   const onDrag = (e) => {
     if (appState.isVisualizing) return;
 
-    if (!drag.isDragging) {
+    if (drag.dragItem === null) {
       const id = getID(e.target);
 
       if (graph.nodes[id].isStart) {
@@ -32,11 +33,10 @@ export const useDragEvents = () => {
       }
     }
   };
-  const onDragOver = (e) => {
+  const onDragOver = async (e) => {
     if (appState.isVisualizing) return;
     e.preventDefault();
-
-    // if (drag.isDragging) e.preventDefault();
+    await delay(1);
     if (drag.dragItem === "wall") {
       const draggedOverID = getID(e.target);
 
@@ -69,5 +69,6 @@ export const useDragEvents = () => {
     }
     setDrag((prev) => ({ ...prev, isDragging: false, dragItem: null }));
   };
+
   return { onDrag, onDragOver, onDrop };
 };
