@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
 
-import { GraphProvider } from "./context/graphContext";
-import { Hero } from "./components/Hero";
-import { AppProvider } from "./context/appContext";
+import { GraphProvider } from "./context/graphContext"
+import { Hero } from "./components/Hero"
+import { AppProvider } from "./context/appContext"
 
 const App = () => {
   return (
-    <AppProvider>
-      <GraphProvider>
+    <GraphProvider>
+      <AppProvider>
         <Hero />
-      </GraphProvider>
-    </AppProvider>
-  );
-};
+      </AppProvider>
+    </GraphProvider>
+  )
+}
 
-export default App;
+export default App
