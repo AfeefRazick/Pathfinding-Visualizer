@@ -39,7 +39,16 @@ export const useDragEvents = () => {
       if (appState.isVisualizing) return
       e.preventDefault()
 
-      if (drag.dragItem === "wall") {
+      if (appState.addWeight) {
+        console.log("dfd")
+        const draggedOverID = getID(e.target)
+        setGraph((prev) =>
+          getGraph(prev.V, prev.start, prev.end, prev.walls, [
+            ...prev.weights,
+            draggedOverID,
+          ])
+        )
+      } else if (drag.dragItem === "wall") {
         const draggedOverID = getID(e.target)
 
         setGraph((prev) =>

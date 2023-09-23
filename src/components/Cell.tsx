@@ -4,10 +4,11 @@ import { useGraphContext } from "../context/graphContext"
 import { cn } from "../utils/cn"
 import { BiTargetLock } from "react-icons/bi"
 import { GiBowman } from "react-icons/gi"
+import { FaBucket } from "react-icons/fa6"
 
 /* eslint-disable react/prop-types */
 export const Cell = ({ node }) => {
-  const { id, isStart, isEnd, isWall } = node
+  const { id, isStart, isEnd, isWall, isWeight } = node
   const { appState } = useAppContext()
   const { graph } = useGraphContext()
 
@@ -24,7 +25,7 @@ export const Cell = ({ node }) => {
     >
       <div
         style={{ backgroundColor, cursor }}
-        draggable={!appState.isVisualizing}
+        draggable={!appState.isVisualizing} //put in parent
         id={`cell-child-${id}`}
         className={cn(
           "h-6 w-6 rounded bg-slate-400/75 transition-all ease-linear"
@@ -36,6 +37,7 @@ export const Cell = ({ node }) => {
           />
         )}
         {isEnd && <BiTargetLock className="h-full w-full" />}
+        {isWeight && <FaBucket className="h-full w-full" />}
       </div>
     </div>
   )

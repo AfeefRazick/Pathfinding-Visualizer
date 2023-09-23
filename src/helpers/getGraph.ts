@@ -1,7 +1,7 @@
-import { Graph } from "../classes/Graph";
+import { Graph } from "../classes/Graph"
 
-export const getGraph = (V, start, end, walls) => {
-  const graph = new Graph(V, start, end, walls);
+export const getGraph = (V, start, end, walls, weights) => {
+  const graph = new Graph(V, start, end, walls, weights)
 
-  return graph;
-};
+  return graph
+}

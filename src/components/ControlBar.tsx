@@ -35,6 +35,12 @@ export const ControlBar = () => {
       <button disabled={appState.isVisualizing} onClick={getShortestPath}>
         Find Shortest Path
       </button>
+      <button
+        disabled={appState.isVisualizing}
+        onClick={() => setAppState((prev) => ({ ...prev, addWeight: true }))}
+      >
+        Add Weight
+      </button>
     </div>
   )
 }
