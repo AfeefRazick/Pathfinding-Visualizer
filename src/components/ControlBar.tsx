@@ -37,9 +37,19 @@ export const ControlBar = () => {
       </button>
       <button
         disabled={appState.isVisualizing}
-        onClick={() => setAppState((prev) => ({ ...prev, addWeight: true }))}
+        onClick={() =>
+          setAppState((prev) => ({ ...prev, addWeight: true, addWall: false }))
+        }
       >
         Add Weight
+      </button>
+      <button
+        disabled={appState.isVisualizing}
+        onClick={() =>
+          setAppState((prev) => ({ ...prev, addWeight: false, addWall: true }))
+        }
+      >
+        Add Wall
       </button>
     </div>
   )

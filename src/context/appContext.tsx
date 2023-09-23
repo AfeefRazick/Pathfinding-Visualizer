@@ -13,7 +13,8 @@ export const AppProvider = ({ children }) => {
   const [appState, setAppState] = useState({
     isVisualizing: false,
     currentAlgorithm: DIJKSTRAS,
-    addWeight: true,
+    addWeight: false,
+    addWall: true,
   })
 
   return (

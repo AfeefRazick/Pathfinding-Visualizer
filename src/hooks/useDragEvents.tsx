@@ -26,8 +26,8 @@ export const useDragEvents = () => {
         } else if (graph.nodes[id].isEnd) {
           setDrag((prev) => ({ ...prev, dragItem: "end" }))
         } else {
-          // make wall
-          setDrag((prev) => ({ ...prev, dragItem: "wall" }))
+          // make wall or weight
+          setDrag((prev) => ({ ...prev, dragItem: "other" }))
         }
       }
     },
@@ -39,50 +39,62 @@ export const useDragEvents = () => {
       if (appState.isVisualizing) return
       e.preventDefault()
 
-      if (appState.addWeight) {
-        console.log("dfd")
-        const draggedOverID = getID(e.target)
-        setGraph((prev) =>
-          getGraph(prev.V, prev.start, prev.end, prev.walls, [
-            ...prev.weights,
-            draggedOverID,
-          ])
-        )
-      } else if (drag.dragItem === "wall") {
-        const draggedOverID = getID(e.target)
+      if (drag.dragItem === "other") {
+        if (appState.addWeight) {
+          const draggedOverID = getID(e.target)
+          setGraph((prev) =>
+            getGraph(prev.V, prev.start, prev.end, prev.walls, [
+              ...prev.weights,
+              draggedOverID,
+            ])
+          )
+        } else if (appState.addWall) {
+          const draggedOverID = getID(e.target)
 
-        setGraph((prev) =>
-          getGraph(prev.V, prev.start, prev.end, [...prev.walls, draggedOverID])
-        )
+          setGraph((prev) =>
+            getGraph(
+              prev.V,
+              prev.start,
+              prev.end,
+              [...prev.walls, draggedOverID],
+              prev.weights
+            )
+          )
+        }
         setDrag((prev) => ({ ...prev, dragItem: null }))
       }
     },
-    [appState.isVisualizing, drag.dragItem, setGraph]
+    [appState, drag.dragItem, setGraph]
   )
 
   const onDrop = useCallback(
     (e) => {
       if (appState.isVisualizing) return
       const dropTargetID = getID(e.target)
+      // if (dropTargetID === graph.start || dropTargetID === graph.end) {
 
-      if (dropTargetID === graph.start || dropTargetID === graph.end) {
-        return setDrag((prev) => ({
-          ...prev,
-          dragItem: null,
-        }))
-      }
+      //   setGraph((prev) =>
+      //     getGraph(prev.V, prev.start, prev.end, prev.walls, prev.weights)
+      //   )
+      //   return setDrag((prev) => ({
+      //     ...prev,
+      //     dragItem: null,
+      //   }))
+      // }
 
       if (drag.dragItem === "start") {
-        setGraph((prev) => getGraph(prev.V, dropTargetID, prev.end, prev.walls))
+        setGraph((prev) =>
+          getGraph(prev.V, dropTargetID, prev.end, prev.walls, prev.weights)
+        )
       }
       if (drag.dragItem === "end") {
         setGraph((prev) =>
-          getGraph(prev.V, prev.start, dropTargetID, prev.walls)
+          getGraph(prev.V, prev.start, dropTargetID, prev.walls, prev.weights)
         )
       }
       setDrag((prev) => ({ ...prev, dragItem: null }))
     },
-    [appState.isVisualizing, drag.dragItem, graph, setGraph]
+    [appState, drag.dragItem, setGraph]
   )
 
   return { onDrag, onDragOver, onDrop }

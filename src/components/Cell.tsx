@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import { COL_COUNT } from "../constants/graphValues"
 import { useAppContext } from "../context/appContext"
 import { useGraphContext } from "../context/graphContext"
 import { cn } from "../utils/cn"
 import { BiTargetLock } from "react-icons/bi"
 import { GiBowman } from "react-icons/gi"
-import { FaBucket } from "react-icons/fa6"
+import weight from "../../public/weight.svg"
 
-/* eslint-disable react/prop-types */
 export const Cell = ({ node }) => {
   const { id, isStart, isEnd, isWall, isWeight } = node
   const { appState } = useAppContext()
@@ -28,7 +28,7 @@ export const Cell = ({ node }) => {
         draggable={!appState.isVisualizing} //put in parent
         id={`cell-child-${id}`}
         className={cn(
-          "h-6 w-6 rounded bg-slate-400/75 transition-all ease-linear"
+          "h-6 w-6 overflow-hidden rounded bg-slate-400/75 transition-all ease-linear"
         )}
       >
         {isStart && (
@@ -37,7 +37,9 @@ export const Cell = ({ node }) => {
           />
         )}
         {isEnd && <BiTargetLock className="h-full w-full" />}
-        {isWeight && <FaBucket className="h-full w-full" />}
+        {isWeight && (
+          <img src={weight} alt="" className="h-full w-full p-0.5" />
+        )}
       </div>
     </div>
   )
