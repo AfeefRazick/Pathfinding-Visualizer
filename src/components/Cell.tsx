@@ -6,8 +6,13 @@ import { cn } from "../utils/cn"
 import { BiTargetLock } from "react-icons/bi"
 import { GiBowman } from "react-icons/gi"
 import weight from "../../public/weight.svg"
+import type { Node } from "../classes/Graph"
 
-export const Cell = ({ node }) => {
+type CellProps = {
+  node: Node
+}
+
+export const Cell = ({ node }: CellProps) => {
   const { id, isStart, isEnd, isWall, isWeight } = node
   const { appState } = useAppContext()
   const { graph } = useGraphContext()
@@ -19,13 +24,13 @@ export const Cell = ({ node }) => {
   return (
     <div
       id={`cell-${id}`}
+      draggable={!appState.isVisualizing}
       className={cn(
         "grid h-full w-full place-items-center overflow-hidden bg-transparent"
       )}
     >
       <div
         style={{ backgroundColor, cursor }}
-        draggable={!appState.isVisualizing} //put in parent
         id={`cell-child-${id}`}
         className={cn(
           "h-6 w-6 overflow-hidden rounded bg-slate-400/75 transition-all ease-linear"
@@ -37,9 +42,7 @@ export const Cell = ({ node }) => {
           />
         )}
         {isEnd && <BiTargetLock className="h-full w-full" />}
-        {isWeight && (
-          <img src={weight} alt="" className="h-full w-full p-0.5" />
-        )}
+        {isWeight && <img src={weight} className="h-full w-full p-0.5" />}
       </div>
     </div>
   )

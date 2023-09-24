@@ -8,7 +8,6 @@ import {
   CUSTOM_ALGORITHM,
   DIJKSTRAS,
   DIJKSTRAS_MIN,
-  GREEDY_BFS,
 } from "../constants/algorithms"
 import { useAstarAlgoMin } from "./algorithms/useAstarAlgoMin"
 import { useAstarAlgo } from "./algorithms/useAstarAlgo"

@@ -1,6 +1,8 @@
-export function manhattanDist(node, endNode) {
-  let d1 = Math.abs(endNode.position.row - node.position.row);
-  let d2 = Math.abs(endNode.position.col - node.position.col);
+import { Node } from "../classes/Graph"
 
-  return d1 + d2;
+export function manhattanDist(node: Node, endNode: Node) {
+  const d1 = Math.abs(endNode.position.row - node.position.row)
+  const d2 = Math.abs(endNode.position.col - node.position.col)
+
+  return d1 + d2
 }

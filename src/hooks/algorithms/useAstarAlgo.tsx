@@ -1,12 +1,13 @@
+import { Graph } from "../../classes/Graph"
 import { getPath } from "../../helpers/getPath"
 import { manhattanDist } from "../../utils/manhattanDistance"
 
 export const useAstarAlgo = () => {
-  function* aStar(graph) {
-    let pq = []
+  function* aStar(graph: Graph) {
+    const pq: number[][] = []
     // Create a vector for distances and initialize all
     // distances as infinite
-    let dist = new Array(graph.V)
+    const dist = new Array(graph.V)
     for (let i = 0; i < graph.V; i++)
       dist[i] = { distance: Infinity, heuristic: null, fromNode: graph.start }
 
@@ -34,7 +35,7 @@ export const useAstarAlgo = () => {
       // has to be done graph way to keep the vertices
       // sorted distance (distance must be first item
       // in pair)
-      let u = pq[0][1]
+      const u = pq[0][1]
       pq.shift()
 
       // loop through neighbours of current node
@@ -42,8 +43,8 @@ export const useAstarAlgo = () => {
       for (let i = 0; i < graph.nodes[u].neighbours.length; i++) {
         // Get vertex label and weight of current
         // adjacent of u.
-        let v = graph.nodes[u].neighbours[i].neighbourIndex
-        let weight = graph.nodes[u].neighbours[i].weight
+        const v = graph.nodes[u].neighbours[i].neighbourIndex
+        const weight = graph.nodes[u].neighbours[i].weight
 
         if (!dist[v].heuristic) {
           dist[v].heuristic = manhattanDist(

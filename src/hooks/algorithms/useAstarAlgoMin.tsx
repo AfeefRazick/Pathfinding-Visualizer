@@ -1,12 +1,13 @@
+import { Graph } from "../../classes/Graph"
 import { PriorityQueue } from "../../classes/MinHeap"
 import { getPath } from "../../helpers/getPath"
 import { manhattanDist } from "../../utils/manhattanDistance"
 
 export const useAstarAlgoMin = () => {
-  function* aStarMin(graph) {
-    let pq = new PriorityQueue((a, b) => a[1] < b[1])
+  function* aStarMin(graph: Graph) {
+    const pq = new PriorityQueue((a, b) => a[1] < b[1])
 
-    let dist = new Array(graph.V)
+    const dist = new Array(graph.V)
     for (let i = 0; i < graph.V; i++)
       dist[i] = { distance: Infinity, heuristic: null, fromNode: graph.start }
 
@@ -24,7 +25,7 @@ export const useAstarAlgoMin = () => {
     }
 
     while (pq.size() > 0) {
-      let u = pq.peek()[0]
+      const u = pq.peek()[0]
       pq.pop()
 
       for (let i = 0; i < graph.nodes[u].neighbours.length; i++) {

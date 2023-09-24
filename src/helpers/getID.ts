@@ -1,3 +1,3 @@
-export const getID = (target) => {
-  return Number(target.id.replace("cell-child-", "").replace("cell-", ""));
-};
+export const getID = (id: string) => {
+  return Number(id.replace("cell-child-", "").replace("cell-", ""))
+}
