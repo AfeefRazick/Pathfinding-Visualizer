@@ -7,7 +7,7 @@ import { FaPlay } from "react-icons/fa6"
 export const Hero = () => {
   const getShortestPath = useShortestPath()
   return (
-    <div className="flex h-screen w-screen flex-col items-center gap-4">
+    <div className="flex h-screen w-screen flex-col items-center gap-2 md:gap-4">
       <ControlBar />
       <Button
         noShadow

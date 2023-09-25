@@ -18,8 +18,8 @@ export const ControlBar = () => {
   const { graph, setGraph } = useGraphContext()
 
   return (
-    <div className="mb-4 flex h-32 w-full items-center justify-center bg-gray-100 pb-4 pt-5 shadow-md">
-      <div className="flex h-full items-center justify-center gap-4">
+    <div className="mb-4 flex h-auto w-full  items-center justify-center bg-gray-100 pb-4 pt-2 shadow-md md:h-32 md:pt-5 ">
+      <div className="flex h-full flex-col items-center justify-center gap-4 md:flex-row">
         <div className="mr-4 flex h-full flex-col items-center">
           <h2 className="pb-2 text-lg font-semibold">Algorithms</h2>
           <select
@@ -45,7 +45,7 @@ export const ControlBar = () => {
 
         <Sliders />
 
-        <div className="flex flex-col justify-between gap-3">
+        <div className="flex w-full flex-row justify-between gap-3 md:w-auto md:flex-col">
           <Button
             isActive={appState.addWeight}
             onClick={() =>
@@ -71,7 +71,7 @@ export const ControlBar = () => {
             Add Wall
           </Button>
         </div>
-        <div className="flex flex-col justify-between gap-3">
+        <div className="flex w-full flex-row justify-between gap-3 md:w-auto md:flex-col">
           <Button
             onClick={() =>
               setGraph((prev) => getGraph({ ...prev, walls: [], weights: [] }))

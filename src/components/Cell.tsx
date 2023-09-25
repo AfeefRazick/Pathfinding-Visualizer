@@ -26,14 +26,14 @@ export const Cell = ({ node }: CellProps) => {
       id={`cell-${id}`}
       draggable={!appState.isVisualizing}
       className={cn(
-        "grid h-full w-full place-items-center overflow-hidden bg-transparent"
+        "grid h-full w-full place-items-center overflow-hidden bg-transparent p-0.5"
       )}
     >
       <div
         style={{ backgroundColor, cursor }}
         id={`cell-child-${id}`}
         className={cn(
-          "h-6 w-6 overflow-hidden rounded bg-slate-400/75 transition-all ease-linear"
+          "h-full w-full overflow-hidden rounded bg-slate-400/75 transition-all ease-linear"
         )}
       >
         {isStart && (

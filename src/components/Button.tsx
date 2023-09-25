@@ -39,7 +39,7 @@ export const Button = ({
       )}
       <span
         className={cn(
-          "button-front text  bg-[rgb(0,190,218)] font-medium text-white",
+          "button-front text bg-[rgb(0,190,218)] font-medium text-white",
           isActive ? "bg-black text-white" : "",
           className
         )}

@@ -8,12 +8,13 @@ export const Grid = () => {
   const { graph } = useGraphContext()
   const { onDrag, onDragOver, onDrop } = useDragEvents()
   console.log(graph)
+
   return (
     <div
       onDrag={onDrag}
       onDragOver={onDragOver}
       onDrop={onDrop}
-      className={`grid grid-cols-[repeat(15,28px)] grid-rows-[repeat(30,28px)] bg-white md:grid-cols-[repeat(30,28px)] md:grid-rows-[repeat(15,28px)]`}
+      className={`grid grid-cols-[repeat(30,12px)] grid-rows-[repeat(15,12px)] bg-white md:grid-cols-[repeat(30,28px)] md:grid-rows-[repeat(15,28px)]`}
     >
       {graph.nodes.map((node: Node, index: number) => {
         return <Cell key={index} node={node} />

@@ -7,7 +7,7 @@ export const Sliders = () => {
   const { setGraph } = useGraphContext()
 
   return (
-    <div className="mx-2 flex flex-col items-center justify-center gap-3 font-medium">
+    <div className="mx-2 flex w-full flex-row items-center justify-around gap-3 font-medium md:w-auto md:flex-col md:justify-center">
       <div className="flex flex-col">
         <p className="text-center ">Weight</p>
         <input
