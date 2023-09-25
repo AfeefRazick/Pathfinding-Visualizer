@@ -26,7 +26,7 @@ export const Cell = ({ node }: CellProps) => {
       id={`cell-${id}`}
       draggable={!appState.isVisualizing}
       className={cn(
-        "grid h-full w-full place-items-center overflow-hidden bg-transparent p-0.5"
+        "grid h-full w-full touch-none place-items-center overflow-hidden bg-transparent p-0.5"
       )}
     >
       <div
