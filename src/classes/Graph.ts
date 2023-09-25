@@ -52,7 +52,7 @@ export class Graph {
     for (let row = 0; row < ROW_COUNT; row++) {
       for (let col = 0; col < COL_COUNT; col++) {
         const i = row * COL_COUNT + col
-
+        const isWeight = this.weights.includes(i)
         let neighbours = []
         // console.log(this.weights.includes(i - COL_COUNT))
         // if node is wall dont add neighbours
@@ -60,22 +60,38 @@ export class Graph {
           if (row !== 0)
             neighbours.push({
               neighbourIndex: i - COL_COUNT,
-              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
+              weight: isWeight
+                ? this.weight
+                : this.weights.includes(i - COL_COUNT)
+                ? this.weight
+                : 1,
             }) //add top neighbour
           if (col !== COL_COUNT - 1)
             neighbours.push({
               neighbourIndex: i + 1,
-              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
+              weight: isWeight
+                ? this.weight
+                : this.weights.includes(i + 1)
+                ? this.weight
+                : 1,
             }) //add right neighbour
           if (row !== ROW_COUNT - 1)
             neighbours.push({
               neighbourIndex: i + COL_COUNT,
-              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
+              weight: isWeight
+                ? this.weight
+                : this.weights.includes(i + COL_COUNT)
+                ? this.weight
+                : 1,
             }) //add bottom neighbour
           if (col !== 0)
             neighbours.push({
               neighbourIndex: i - 1,
-              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
+              weight: isWeight
+                ? this.weight
+                : this.weights.includes(i - 1)
+                ? this.weight
+                : 1,
             }) //add left neighbour
         }
 
@@ -91,7 +107,7 @@ export class Graph {
           isStart: start === i,
           isEnd: end === i,
           isWall: this.walls.includes(i),
-          isWeight: this.weights.includes(i),
+          isWeight: isWeight,
         }
       }
     }
