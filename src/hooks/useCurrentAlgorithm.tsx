@@ -22,7 +22,7 @@ export const useCurrentAlgorithm = () => {
   const aStarMin = useAstarAlgoMin()
   const customAlgo = useCustomAlgo()
 
-  let currentAlgorithm = useMemo(() => {
+  const currentAlgorithm = useMemo(() => {
     switch (appState.currentAlgorithm) {
       case DIJKSTRAS:
         return dijkstras

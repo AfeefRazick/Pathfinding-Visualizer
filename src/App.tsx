@@ -6,11 +6,11 @@ import { AppProvider } from "./context/appContext"
 
 const App = () => {
   return (
-    <GraphProvider>
-      <AppProvider>
+    <AppProvider>
+      <GraphProvider>
         <Hero />
-      </AppProvider>
-    </GraphProvider>
+      </GraphProvider>
+    </AppProvider>
   )
 }
 

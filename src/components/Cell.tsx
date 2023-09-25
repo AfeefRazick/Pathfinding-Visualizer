@@ -5,7 +5,7 @@ import { useGraphContext } from "../context/graphContext"
 import { cn } from "../utils/cn"
 import { BiTargetLock } from "react-icons/bi"
 import { GiBowman } from "react-icons/gi"
-import weight from "../../public/weight.svg"
+import weight from "../assets/weight.svg"
 import type { Node } from "../classes/Graph"
 
 type CellProps = {

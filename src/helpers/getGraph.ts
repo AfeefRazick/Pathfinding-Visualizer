@@ -6,9 +6,17 @@ type GraphParams = {
   end: number
   walls: number[]
   weights: number[]
+  weight: number
 }
-export const getGraph = ({ V, start, end, walls, weights }: GraphParams) => {
-  const graph = new Graph(V, start, end, walls, weights)
+export const getGraph = ({
+  V,
+  start,
+  end,
+  walls,
+  weights,
+  weight,
+}: GraphParams) => {
+  const graph = new Graph(V, start, end, walls, weights, weight)
 
   return graph
 }

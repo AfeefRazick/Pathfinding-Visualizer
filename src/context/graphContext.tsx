@@ -23,6 +23,7 @@ const initialGraph = getGraph({
     //
     141, 140, 139, 138, 168, 198, 228, 258, 288, 318, 319, 320, 321,
   ],
+  weight: 1,
 })
 
 type GraphContext = {

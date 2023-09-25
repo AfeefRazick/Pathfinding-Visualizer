@@ -7,6 +7,8 @@ const initialAppState = {
   currentAlgorithm: DIJKSTRAS,
   addWeight: false,
   addWall: true,
+  delayms: 1,
+  weight: 1,
 }
 type AppState = typeof initialAppState
 

@@ -22,13 +22,15 @@ export class Graph {
   walls: number[]
   weights: number[]
   nodes: Node[]
+  weight: number
 
   constructor(
     V: number,
     start: number,
     end: number,
     walls: number[] = [],
-    weights: number[] = []
+    weights: number[] = [],
+    weight: number = 1
   ) {
     // No. of vertices
     this.V = V
@@ -44,7 +46,7 @@ export class Graph {
       (id, index) =>
         !(id === start || id === end) && weights.indexOf(id) === index
     )
-
+    this.weight = weight
     this.nodes = new Array(V)
 
     for (let row = 0; row < ROW_COUNT; row++) {
@@ -58,22 +60,22 @@ export class Graph {
           if (row !== 0)
             neighbours.push({
               neighbourIndex: i - COL_COUNT,
-              weight: this.weights.includes(i - COL_COUNT) ? 5 : 1,
+              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
             }) //add top neighbour
           if (col !== COL_COUNT - 1)
             neighbours.push({
               neighbourIndex: i + 1,
-              weight: this.weights.includes(i - COL_COUNT) ? 5 : 1,
+              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
             }) //add right neighbour
           if (row !== ROW_COUNT - 1)
             neighbours.push({
               neighbourIndex: i + COL_COUNT,
-              weight: this.weights.includes(i - COL_COUNT) ? 5 : 1,
+              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
             }) //add bottom neighbour
           if (col !== 0)
             neighbours.push({
               neighbourIndex: i - 1,
-              weight: this.weights.includes(i - COL_COUNT) ? 5 : 1,
+              weight: this.weights.includes(i - COL_COUNT) ? this.weight : 1,
             }) //add left neighbour
         }
 

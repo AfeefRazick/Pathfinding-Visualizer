@@ -7,27 +7,18 @@ import { useGraphContext } from "../context/graphContext"
 import { delay } from "../utils/delay"
 import { useAppContext } from "../context/appContext"
 import { useCurrentAlgorithm } from "./useCurrentAlgorithm"
+import { resetGraphStyles } from "../helpers/resetGraphStyles"
 
 export const useShortestPath = () => {
   const { graph } = useGraphContext()
-  const { setAppState } = useAppContext()
+  const { appState, setAppState } = useAppContext()
   const currentAlgorithm = useCurrentAlgorithm()
 
   const getShortestPath = useCallback(async () => {
     setAppState((prev) => ({ ...prev, isVisualizing: true }))
 
     // remove cell styles before finding shortest path
-    graph.nodes.forEach((node) => {
-      if (!(node.isStart || node.isEnd || node.isWall)) {
-        const nodeElement = document.getElementById(`cell-child-${node.id}`)
-
-        if (nodeElement) {
-          nodeElement.classList.remove(SHORTESTPATH_ANIMATION)
-          nodeElement.classList.remove(VISITED_ANIMATION)
-          nodeElement.style.backgroundColor = "rgb(168, 183, 204)"
-        }
-      }
-    })
+    resetGraphStyles(graph)
 
     const shortestPathGenerator = currentAlgorithm(graph)
 
@@ -49,7 +40,7 @@ export const useShortestPath = () => {
         }
       }
 
-      await delay(1)
+      await delay(appState.delayms)
       nextYield = shortestPathGenerator.next()
     }
 
@@ -80,6 +71,6 @@ export const useShortestPath = () => {
     if (path.length === 0) {
       // no path message
     }
-  }, [currentAlgorithm, graph, setAppState])
+  }, [currentAlgorithm, graph, appState, setAppState])
   return getShortestPath
 }

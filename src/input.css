@@ -2,29 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  /* @apply visited-animation {
-    animation: visitedAnimation 300 ease-linear;
+@layer base {
+  :root {
+    /* --button: hsl(55, 100%, 51%); */
+    --button-edge: hsl(55, 95%, 34%);
   }
-  @keyframes visitedAnimation {
-    0% {
-      transform: scale(0.3);
-      background-color: rgba(0, 0, 66, 0.75);
-      border-radius: 100%;
-    }
-
-    50% {
-      background-color: rgba(17, 104, 217, 0.75);
-    }
-
-    75% {
-      transform: scale(1.2);
-      background-color: rgba(0, 217, 159, 0.75);
-    }
-
-    100% {
-      transform: scale(1);
-      background-color: rgba(0, 190, 218, 0.75);
-    }
-  } */
 }
+@layer components {
+  .slider {
+    width: 80px;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: black;
+    border-radius: 40px;
+    height: 2px;
+    margin: 5px 0;
+  }
+
+  .slider:hover {
+    opacity: 70%;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: rgb(0, 190, 218);
+    border-radius: 20px;
+  }
+
+  /* CSS */
+  .button-pushable {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .button-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+  }
+
+  .button-edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    /* background: var(--button-edge); */
+  }
+
+  .button-front {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 4px 12px;
+    border-radius: 6px;
+    color: white;
+    /* background: var(--button); */
+    will-change: transform;
+    transform: translateY(-4px);
+    transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+  }
+  .button-front:disabled {
+    opacity: 0;
+  }
+
+  @media (min-width: 768px) {
+    .button-front {
+      padding: 4px 14px;
+    }
+  }
+
+  .button-pushable:hover {
+    filter: brightness(110%);
+    -webkit-filter: brightness(110%);
+  }
+
+  .button-pushable:hover .button-front {
+    transform: translateY(-6px);
+    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+  }
+
+  .button-pushable:active .button-front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+  }
+
+  .button-pushable:hover .button-shadow {
+    transform: translateY(4px);
+    transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+  }
+
+  .button-pushable:active .button-shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+  }
+
+  .button-pushable:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+/* hsl(345deg 100% 47%--) */
