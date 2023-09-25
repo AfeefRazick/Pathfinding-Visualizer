@@ -5,14 +5,11 @@ import { manhattanDist } from "../../utils/manhattanDistance"
 export const useCustomAlgo = () => {
   function* customAlgo(graph: Graph) {
     const pq: number[][] = []
-    // Create a vector for distances and initialize all
-    // distances as infinite
+
     const dist = new Array(graph.V)
     for (let i = 0; i < graph.V; i++)
       dist[i] = { distance: Infinity, fromNode: graph.start }
 
-    // Insert source itself in priority queue and initialize
-    // its distance as 0.
     pq.push([
       manhattanDist(graph.nodes[graph.start], graph.nodes[graph.end]),
       graph.start,
@@ -22,15 +19,7 @@ export const useCustomAlgo = () => {
       fromNode: graph.start,
     }
 
-    /* Looping till priority queue becomes empty (or all
-        distances are not finalized) */
     while (pq.length > 0) {
-      // The first vertex in pair is the minimum distance
-      // vertex, extract it from priority queue.
-      // vertex label is stored in second of pair (it
-      // has to be done graph way to keep the vertices
-      // sorted distance (distance must be first item
-      // in pair)
       const u = pq[0][1]
       pq.shift()
 
